@@ -1,22 +1,37 @@
 import React, { Component } from 'react';
-import ReactDom from 'react-dom';
-import PropTypes from 'prop-types';
+import WebpackerReact from 'webpacker-react';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+import { Login } from 'components/registration/login';
+import { Signup } from 'components/registration/signup'
+injectTapEventPlugin();
 
 class Registration extends Component {
+    constructor(){
+        super();
+        this.state = {
+            showLogin: false
+        }
+        this.toggle = this.toggle.bind(this);
+    }
+    toggle(e) {
+        e.preventDefault();
+        this.setState({
+            showLogin: !this.state.showLogin
+        })
+    }
     render() {
         return (
             <div>
-                <p>Hola nuevo componente</p>
+                {
+                    this.state.showLogin ? 
+                        <Login toggle={() => this.toggle}/> :
+                        <Signup toggle={() => this.toggle}/>
+                }
             </div>
+                
         );
     }
 }
 
-Registration.propTypes = {
-
-};
-
-document.addEventListener('DOMContentLoaded', () => {
-    ReactDom.render(<Registration/>,
-         document.getElementById('react-container'));
-  })
+WebpackerReact.setup({Registration});
