@@ -14,7 +14,7 @@ export class Login extends Base {
     
     submit(){
         reqwest({
-            url: '/users/sign_in',
+            url: '/users/sign_in.json',
             method: 'POST',
             data: {
                 user: {
@@ -26,8 +26,16 @@ export class Login extends Base {
                 'X-CSRF-Token': window.FacilitoSocial.token
             }
         }).then( data => {
-            console.log(data)
-        }).catch(err => console.log(err));
+            // console.log(data)
+            this.reload();
+        }).catch(err => this.handleError(err));
+    }
+    handleError(err) {
+        const errorMessage = JSON.parse(err.response).error;
+        this.setState({
+            error: errorMessage
+        })
+
     }
     render() {
         return (
@@ -35,6 +43,7 @@ export class Login extends Base {
                 <Formsy.Form onValid={ () => this.enableSubmitButton() } 
                             onInvalid={ () => this.disableSubmitButton() }
                             onValidSubmit={ () => this.submit()}>
+                    <div>{this.state.error}</div>
                     <div>
                         <FormsyText 
                             onChange={ e => this.syncField(e, 'email') }

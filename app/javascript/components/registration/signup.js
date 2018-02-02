@@ -13,7 +13,7 @@ import { Base, styles } from './base';
 export class Signup extends Base {
     submit(){
         reqwest({
-            url: '/users',
+            url: '/users.json',
             method: 'POST',
             data: {
                 user: {
@@ -26,8 +26,18 @@ export class Signup extends Base {
                 'X-CSRF-Token': window.FacilitoSocial.token
             }
         }).then( data => {
-            console.log(data)
-        }).catch(err => console.log(err));
+            this.reload();
+            // console.log(data)
+        }).catch(err => this.handleError(err));
+    }
+    handleError(err){
+        const jsonError = JSON.parse(err.response);
+        const errors = jsonError.errors;
+        let errorsResponse = [];
+        for (let key in errors){
+            errorsResponse.push(<li key={key}>{errors[key]}</li>)
+        }
+        this.setState({ error: errorsResponse})
     }
     render() {
         return (
@@ -35,6 +45,7 @@ export class Signup extends Base {
                 <Formsy.Form onValid={ () => this.enableSubmitButton() } 
                             onInvalid={ () => this.disableSubmitButton() }
                             onValidSubmit={ () => this.submit() }>
+                    <ul>{this.state.error}</ul>
                     <div>
                         <FormsyText 
                             onChange={ e => this.syncField(e, 'email') }

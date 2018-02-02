@@ -42,7 +42,9 @@ export class Base extends Component {
         jsonState[fieldName] = value;
         this.setState(jsonState);
     }
-
+    reload(){
+        window.location.href = window.location.href;
+    }
     render() {
         return (
             <div>
