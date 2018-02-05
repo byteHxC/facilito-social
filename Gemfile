@@ -41,6 +41,9 @@ gem 'devise'
 #HAML for views
 gem 'haml-rails'
 
+#Annotate to show columns on model file
+gem 'annotate'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
