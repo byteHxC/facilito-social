@@ -7,7 +7,7 @@ export class Posts extends Component {
     publications(){
         if(this.props.posts){
             return this.props.posts.map((post, key) => 
-                        (<Post key={post.id} html_content={post.html_content}></Post>));
+                        (<Post key={post.id}  post={post}></Post>));
         }
         return "";
     }

@@ -16,10 +16,21 @@
 
 class Post < ApplicationRecord
   belongs_to :user
+  has_many :images
 
   validates :markdown_content, presence: true, length: { minimum: 2 }
+
+  after_save :update_images
+  attr_accessor :image_ids
 
   def self.latest
     order("id desc")
   end
+
+  private 
+    def update_images
+      Image.where(post_id: nil).where(id: image_ids)
+        .update_all(post_id: self.id)
+    end
 end
+

@@ -25,7 +25,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = current_user.posts.new(post_params)
-
+    @post.image_ids = params[:post][:image_ids]
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -69,6 +69,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:html_content, :markdown_content, :user_id)
+      params.require(:post).permit(:html_content, :markdown_content, :user_id, :image_ids)
     end
 end

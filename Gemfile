@@ -44,6 +44,10 @@ gem 'haml-rails'
 #Annotate to show columns on model file
 gem 'annotate'
 
+#Paperclip to upload files
+gem 'paperclip', '~> 5.0.0'
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
