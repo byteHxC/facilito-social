@@ -48,7 +48,7 @@ gem 'annotate'
 gem 'paperclip', '~> 5.0.0'
 
 #Redis adapter
-gem 'redis'
+gem "redis", "~> 3.0" 
 
 
 # Use Capistrano for deployment
