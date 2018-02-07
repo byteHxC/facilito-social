@@ -1,5 +1,7 @@
 development:
-  adapter: async
+  adapter: redis
+  url: redis://localhost:6379/1
+  channel_prefix: facilito-social_development
 
 test:
   adapter: async
@@ -8,3 +10,4 @@ production:
   adapter: redis
   url: redis://localhost:6379/1
   channel_prefix: facilito-social_production
+

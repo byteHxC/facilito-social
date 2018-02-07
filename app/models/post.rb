@@ -21,6 +21,7 @@ class Post < ApplicationRecord
   validates :markdown_content, presence: true, length: { minimum: 2 }
 
   after_save :update_images
+  # after_create :push_to_web_sockets
   attr_accessor :image_ids
 
   def self.latest
@@ -31,6 +32,18 @@ class Post < ApplicationRecord
     def update_images
       Image.where(post_id: nil).where(id: image_ids)
         .update_all(post_id: self.id)
+      push_to_web_sockets
+    end
+    def push_to_web_sockets
+      if created_at_changed?
+        ActionCable.server.broadcast(
+          "posts", 
+          data: json_view
+        )
+      end
+    end
+    def json_view
+      ApplicationController.renderer.render(partial: 'posts/post.json.jbuilder', locals: { post: self })
     end
 end
 

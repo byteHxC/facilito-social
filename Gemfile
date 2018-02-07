@@ -47,6 +47,9 @@ gem 'annotate'
 #Paperclip to upload files
 gem 'paperclip', '~> 5.0.0'
 
+#Redis adapter
+gem 'redis'
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

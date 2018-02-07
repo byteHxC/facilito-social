@@ -39,7 +39,7 @@ export class Carousel extends Component {
     }
     images(){
         return this.props.images.map((image, i) => {
-            return (<img style={styles.image} src={image.urls.original} />)
+            return (<img key={i} style={styles.image} src={image.urls.original} />)
         })
     }
     getLeftValue(){
@@ -75,8 +75,6 @@ export class Carousel extends Component {
                     <HardwareKeyboardArrowRight/>
                 </FloatingActionButton>
             </div>)
-        
-        
     }
     render() {
         return (
